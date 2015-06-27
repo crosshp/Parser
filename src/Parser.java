@@ -34,11 +34,12 @@ public class Parser {
         String[] parseMassive = nonParseString.split(",");
         for(String s: parseMassive){
            s = deleteUnnecessaryToken(s);
-            try {
+            s = deleteNumbers(s);
+         /*   try {
                 FactoryDAO.getInstance().getImplementationDAO().addIngridient(new Ingridient(s));
             } catch (SQLException e) {
                 e.printStackTrace();
-            }
+            }*/
              System.out.println(s);
         }
     }
@@ -56,7 +57,24 @@ public class Parser {
         }
         return newString;
     }
-
+    char [] numbers = {'0','1','2','3','4','5','6','7','8','9'};
+    public String deleteNumbers(String stringWithNumbers){
+        String stringWithoutNumbers = "";
+        for(int i = 0; i < stringWithNumbers.length(); i++){
+            if(!containsInNumber(stringWithNumbers.charAt(i))){
+                stringWithoutNumbers+=stringWithNumbers.charAt(i);
+            }
+        }
+        return stringWithoutNumbers;
+    }
+    public  boolean containsInNumber(char c){
+        for(char s: numbers){
+            if(s==c){
+                return true;
+            }
+        }
+        return false;
+    }
     public boolean containsInException(String str){
         for(String s: exceptions){
             if(s.equals(str)){
